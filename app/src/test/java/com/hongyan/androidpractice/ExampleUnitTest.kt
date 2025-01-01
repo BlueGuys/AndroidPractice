@@ -1,4 +1,4 @@
-package com.hongyan
+package com.hongyan.androidpractice
 
 import org.junit.Test
 

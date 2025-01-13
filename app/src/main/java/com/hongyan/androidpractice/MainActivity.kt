@@ -2,24 +2,24 @@ package com.hongyan.androidpractice
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import com.hongyan.androidpractice.ui.theme.AndroidPracticeTheme
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 
 class MainActivity : ComponentActivity() {
 
@@ -27,12 +27,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AndroidPracticeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+            Column {
+                Text(text = "Compose UI")
+                ImageGroup()
+                Button(onClick = {
+                    println("点击了按钮")
+                    jump()
+                }) {
+                    Icon(imageVector = Icons.Default.Call, contentDescription = null)
+                    Text(text = "跳转Button")
                 }
             }
         }
@@ -45,26 +48,21 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun Greeting(name: String, modifier: Modifier = Modifier) {
-        Column {
-            Text(text = "Hello2 $name!", modifier = modifier)
-            Text(text = "哈哈哈哈哈")
-            ImageGroup()
-            Button(onClick = {
-                println("点击了按钮")
-                jump()
-            }) {
-                Icon(imageVector = Icons.Default.Call, contentDescription = null)
-                Text(text = "跳转Button")
-            }
-        }
-    }
-
-    @Composable
     fun ImageGroup() {
+        // 加载本地图片
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_background),
-            contentDescription = "收拾收拾"
+            modifier = Modifier.fillMaxWidth().height(200.dp),
+            painter = painterResource(id = R.drawable.mountain),
+            contentDescription = "描述",
+            alpha = 1f,//0~1完全透明到完全不透明设置
+            contentScale = ContentScale.Crop//图片拉伸或裁剪设置
+        )
+        // 加载网络图片
+        AsyncImage(
+            modifier = Modifier.fillMaxWidth().height(200.dp),
+            model = "https://ziyuan.guwendao.net/mingjuImg/B38A17D34E9DADE19D67D0F27D429058.jpg",
+            contentDescription = "描述",
+            contentScale = ContentScale.Crop
         )
     }
 }

@@ -6,9 +6,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material3.Button
@@ -16,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -27,7 +31,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Column {
+            val scrollState = rememberScrollState()
+            Column(modifier = Modifier
+                .background(Color.LightGray)
+                .fillMaxWidth()
+                .verticalScroll(scrollState)) {
                 Text(text = "Compose UI")
                 ImageGroup()
                 Button(onClick = {
@@ -37,12 +45,24 @@ class MainActivity : ComponentActivity() {
                     Icon(imageVector = Icons.Default.Call, contentDescription = null)
                     Text(text = "跳转Button")
                 }
+                Button(onClick = {
+                    jumpTest()
+                }) {
+                    Icon(imageVector = Icons.Default.Call, contentDescription = null)
+                    Text(text = "测试Activity")
+                }
             }
         }
     }
 
     private fun jump() {
         val intent =  Intent(this, ScoreListActivity::class.java)
+        intent.putExtra("key1","Value1")
+        startActivity(intent)
+    }
+
+    private fun jumpTest() {
+        val intent =  Intent(this, TestDemoActivity::class.java)
         intent.putExtra("key1","Value1")
         startActivity(intent)
     }

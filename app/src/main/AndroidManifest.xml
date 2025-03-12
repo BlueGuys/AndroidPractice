@@ -18,7 +18,7 @@
         <activity
             android:name=".ScoreListActivity"
             android:exported="false" />
-        <activity android:name=".TestDemoActivity"
+        <activity android:name=".viewmodel.TestDemoActivity"
             android:exported="false"/>
         <activity
             android:name=".MainActivity"

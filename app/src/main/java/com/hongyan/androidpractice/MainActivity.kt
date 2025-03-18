@@ -57,6 +57,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun jump() {
+
         val intent =  Intent(this, ScoreListActivity::class.java)
         intent.putExtra("key1","Value1")
         startActivity(intent)
